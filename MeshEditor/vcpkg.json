@@ -1,0 +1,11 @@
+// File: MeshEditor/vcpkg.json
+{
+  "name": "mesheditor",
+  "version-string": "0.1.0",
+  "dependencies": [
+    "glm",
+    "tinygltf",
+    "tinyobjloader",
+    "nlohmann-json"
+  ]
+}
