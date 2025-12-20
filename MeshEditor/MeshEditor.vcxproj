@@ -1,0 +1,139 @@
+<!-- File: MeshEditor/MeshEditor.vcxproj -->
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{3F52F1C6-7F6D-4C43-9E5C-6EB9C8B7A9E0}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>MeshEditor</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>vNext</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>vNext</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <PropertyGroup>
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\$(Configuration)\obj\</IntDir>
+    <LocalDebuggerWorkingDirectory>$(OutDir)</LocalDebuggerWorkingDirectory>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\app\App.cpp" />
+    <ClCompile Include="src\app\Main.cpp" />
+    <ClCompile Include="src\assets\AssetDatabase.cpp" />
+    <ClCompile Include="src\assets\Export_OBJ.cpp" />
+    <ClCompile Include="src\assets\Import_GLTF.cpp" />
+    <ClCompile Include="src\assets\Import_OBJ.cpp" />
+    <ClCompile Include="src\assets\Importer.cpp" />
+    <ClCompile Include="src\engine\Command.cpp" />
+    <ClCompile Include="src\engine\FileSystem.cpp" />
+    <ClCompile Include="src\engine\Logger.cpp" />
+    <ClCompile Include="src\engine\Math.cpp" />
+    <ClCompile Include="src\engine\Time.cpp" />
+    <ClCompile Include="src\engine\UndoStack.cpp" />
+    <ClCompile Include="src\render\Camera.cpp" />
+    <ClCompile Include="src\render\Grid.cpp" />
+    <ClCompile Include="src\render\RenderMesh.cpp" />
+    <ClCompile Include="src\render\RendererDX11.cpp" />
+    <ClCompile Include="src\render\ShaderDX11.cpp" />
+    <ClCompile Include="src\render\TextureDX11.cpp" />
+    <ClCompile Include="src\render\WICTextureLoaderLite.cpp" />
+    <ClCompile Include="src\scene\Components.cpp" />
+    <ClCompile Include="src\scene\Entity.cpp" />
+    <ClCompile Include="src\scene\Scene.cpp" />
+    <ClCompile Include="src\scene\Selection.cpp" />
+    <ClCompile Include="src\tools\Tool.cpp" />
+    <ClCompile Include="src\tools\ToolManager.cpp" />
+    <ClCompile Include="src\tools\Tool_Bevel.cpp" />
+    <ClCompile Include="src\tools\Tool_Extrude.cpp" />
+    <ClCompile Include="src\tools\Tool_Select.cpp" />
+    <ClCompile Include="src\tools\Tool_Transform.cpp" />
+    <ClCompile Include="src\ui\Dock_Console.cpp" />
+    <ClCompile Include="src\ui\Dock_Content.cpp" />
+    <ClCompile Include="src\ui\Dock_Outliner.cpp" />
+    <ClCompile Include="src\ui\Dock_Properties.cpp" />
+    <ClCompile Include="src\ui\GizmoOverlay.cpp" />
+    <ClCompile Include="src\ui\MainWindow.cpp" />
+    <ClCompile Include="src\ui\ViewportWidget.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\app\App.h" />
+    <ClInclude Include="src\assets\AssetDatabase.h" />
+    <ClInclude Include="src\assets\Export_OBJ.h" />
+    <ClInclude Include="src\assets\Import_GLTF.h" />
+    <ClInclude Include="src\assets\Import_OBJ.h" />
+    <ClInclude Include="src\assets\Importer.h" />
+    <ClInclude Include="src\engine\Command.h" />
+    <ClInclude Include="src\engine\Core.h" />
+    <ClInclude Include="src\engine\FileSystem.h" />
+    <ClInclude Include="src\engine\Logger.h" />
+    <ClInclude Include="src\engine\Math.h" />
+    <ClInclude Include="src\engine\Time.h" />
+    <ClInclude Include="src\engine\UndoStack.h" />
+    <ClInclude Include="src\render\Camera.h" />
+    <ClInclude Include="src\render\Grid.h" />
+    <ClInclude Include="src\render\RenderMesh.h" />
+    <ClInclude Include="src\render\RendererDX11.h" />
+    <ClInclude Include="src\render\ShaderDX11.h" />
+    <ClInclude Include="src\render\TextureDX11.h" />
+    <ClInclude Include="src\render\WICTextureLoaderLite.h" />
+    <ClInclude Include="src\scene\Components.h" />
+    <ClInclude Include="src\scene\Entity.h" />
+    <ClInclude Include="src\scene\Scene.h" />
+    <ClInclude Include="src\scene\Selection.h" />
+    <ClInclude Include="src\tools\Tool.h" />
+    <ClInclude Include="src\tools\ToolManager.h" />
+    <ClInclude Include="src\tools\Tool_Bevel.h" />
+    <ClInclude Include="src\tools\Tool_Extrude.h" />
+    <ClInclude Include="src\tools\Tool_Select.h" />
+    <ClInclude Include="src\tools\Tool_Transform.h" />
+    <ClInclude Include="src\ui\Dock_Console.h" />
+    <ClInclude Include="src\ui\Dock_Content.h" />
+    <ClInclude Include="src\ui\Dock_Outliner.h" />
+    <ClInclude Include="src\ui\Dock_Properties.h" />
+    <ClInclude Include="src\ui\GizmoOverlay.h" />
+    <ClInclude Include="src\ui\MainWindow.h" />
+    <ClInclude Include="src\ui\ViewportWidget.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\shaders\BasicMesh.hlsl" />
+    <None Include="data\shaders\Grid.hlsl" />
+  </ItemGroup>
+  <ItemDefinitionGroup>
+    <PostBuildEvent>
+      <Command>if not exist "$(OutDir)data" mkdir "$(OutDir)data"&#x0D;&#x0A;xcopy /y /s /i "$(ProjectDir)data\shaders" "$(OutDir)data\shaders"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets"></ImportGroup>
+</Project>
