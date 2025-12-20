@@ -1,0 +1,263 @@
+// File: MeshEditor/MeshEditor.vcxproj.filters
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="app">
+      <UniqueIdentifier>{8F46808A-8A2D-4C69-B62D-1C51C7E1B7B5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ui">
+      <UniqueIdentifier>{F9CB3E4C-FE2E-4E2A-B936-5CD62E5DA93C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine">
+      <UniqueIdentifier>{2E98A0D9-5A51-4A3D-A130-9B47A3D07A2A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scene">
+      <UniqueIdentifier>{4A80D546-522E-47B7-B78E-9F4A7E5052CF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="render">
+      <UniqueIdentifier>{4A1AC78E-1E2B-4E42-910E-41F09CBB76F8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets">
+      <UniqueIdentifier>{447D3BE1-4A99-4E68-8B2D-6824B2A98D5F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tools">
+      <UniqueIdentifier>{86EC9E44-31E2-4AC7-8DB9-1B4D75F8B6B2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shaders">
+      <UniqueIdentifier>{1F5E394A-0F2E-4D0D-9558-7B7B5D0D2B9F}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\app\App.cpp">
+      <Filter>app</Filter>
+    </ClCompile>
+    <ClCompile Include="src\app\Main.cpp">
+      <Filter>app</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\MainWindow.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\Dock_Outliner.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\Dock_Properties.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\Dock_Content.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\Dock_Console.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\ViewportWidget.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\GizmoOverlay.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\Logger.cpp">
+      <Filter>engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\Time.cpp">
+      <Filter>engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\Command.cpp">
+      <Filter>engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\UndoStack.cpp">
+      <Filter>engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\FileSystem.cpp">
+      <Filter>engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\Math.cpp">
+      <Filter>engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene\Scene.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene\Entity.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene\Components.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene\Selection.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render\RendererDX11.cpp">
+      <Filter>render</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render\RenderMesh.cpp">
+      <Filter>render</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render\ShaderDX11.cpp">
+      <Filter>render</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render\Camera.cpp">
+      <Filter>render</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render\Grid.cpp">
+      <Filter>render</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render\TextureDX11.cpp">
+      <Filter>render</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render\WICTextureLoaderLite.cpp">
+      <Filter>render</Filter>
+    </ClCompile>
+    <ClCompile Include="src\assets\Importer.cpp">
+      <Filter>assets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\assets\Import_OBJ.cpp">
+      <Filter>assets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\assets\Import_GLTF.cpp">
+      <Filter>assets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\assets\Export_OBJ.cpp">
+      <Filter>assets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\assets\AssetDatabase.cpp">
+      <Filter>assets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tools\Tool.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tools\ToolManager.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tools\Tool_Select.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tools\Tool_Transform.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tools\Tool_Extrude.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tools\Tool_Bevel.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\app\App.h">
+      <Filter>app</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\MainWindow.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\Dock_Outliner.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\Dock_Properties.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\Dock_Content.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\Dock_Console.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\ViewportWidget.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\GizmoOverlay.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\Core.h">
+      <Filter>engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\Logger.h">
+      <Filter>engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\Time.h">
+      <Filter>engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\Command.h">
+      <Filter>engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\UndoStack.h">
+      <Filter>engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\FileSystem.h">
+      <Filter>engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\Math.h">
+      <Filter>engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\Scene.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\Entity.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\Components.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\Selection.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render\RendererDX11.h">
+      <Filter>render</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render\RenderMesh.h">
+      <Filter>render</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render\ShaderDX11.h">
+      <Filter>render</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render\Camera.h">
+      <Filter>render</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render\Grid.h">
+      <Filter>render</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render\TextureDX11.h">
+      <Filter>render</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render\WICTextureLoaderLite.h">
+      <Filter>render</Filter>
+    </ClInclude>
+    <ClInclude Include="src\assets\Importer.h">
+      <Filter>assets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\assets\Import_OBJ.h">
+      <Filter>assets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\assets\Import_GLTF.h">
+      <Filter>assets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\assets\Export_OBJ.h">
+      <Filter>assets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\assets\AssetDatabase.h">
+      <Filter>assets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tools\Tool.h">
+      <Filter>tools</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tools\ToolManager.h">
+      <Filter>tools</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tools\Tool_Select.h">
+      <Filter>tools</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tools\Tool_Transform.h">
+      <Filter>tools</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tools\Tool_Extrude.h">
+      <Filter>tools</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tools\Tool_Bevel.h">
+      <Filter>tools</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\shaders\BasicMesh.hlsl">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="data\shaders\Grid.hlsl">
+      <Filter>shaders</Filter>
+    </None>
+  </ItemGroup>
+</Project>

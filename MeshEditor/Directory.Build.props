@@ -1,0 +1,22 @@
+// File: MeshEditor/Directory.Build.props
+<Project>
+  <PropertyGroup>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>vNext</PlatformToolset>
+    <WindowsTargetPlatformVersion>$(WindowsTargetPlatformVersion)</WindowsTargetPlatformVersion>
+    <LanguageStandard>stdcpp20</LanguageStandard>
+    <WarningLevel>Level4</WarningLevel>
+    <TreatWarningAsError>false</TreatWarningAsError>
+    <MultiProcessorCompilation>true</MultiProcessorCompilation>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PreprocessorDefinitions>UNICODE;_UNICODE;NOMINMAX;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(QT6_DIR)\include;$(QTDIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(QT6_DIR)\lib;$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;d3dcompiler.lib;windowscodecs.lib;Qt6Core.lib;Qt6Gui.lib;Qt6Widgets.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+</Project>
