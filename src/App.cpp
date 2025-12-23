@@ -47,16 +47,21 @@ void App::init() {
 }
 
 void App::setupShortcuts() {
-    // Transform tools
+    // Transform tools (W/E/R only if not Ctrl pressed)
     m_input.registerKeyCallback(GLFW_KEY_W, [this]() {
-        m_ui->setStatusMessage("Translate mode");
+        bool ctrlPressed = m_input.isKeyPressed(GLFW_KEY_LEFT_CONTROL) || m_input.isKeyPressed(GLFW_KEY_RIGHT_CONTROL);
+        if (!ctrlPressed) {
+            m_ui->setStatusMessage("Translate mode");
+        }
     });
-    m_input.registerKeyCallback(GLFW_KEY_E, [this]() {
-        m_ui->setStatusMessage("Rotate mode");
-    });
+    
     m_input.registerKeyCallback(GLFW_KEY_R, [this]() {
-        m_ui->setStatusMessage("Scale mode");
+        bool ctrlPressed = m_input.isKeyPressed(GLFW_KEY_LEFT_CONTROL) || m_input.isKeyPressed(GLFW_KEY_RIGHT_CONTROL);
+        if (!ctrlPressed) {
+            m_ui->setStatusMessage("Rotate mode (legacy - use ImGuizmo)");
+        }
     });
+    
     m_input.registerKeyCallback(GLFW_KEY_Q, [this]() {
         m_ui->setStatusMessage("Select mode");
     });
@@ -97,6 +102,36 @@ void App::setupShortcuts() {
     m_input.registerKeyCallback(GLFW_KEY_X, [this]() {
         m_showGrid = !m_showGrid;
         m_ui->setStatusMessage(m_showGrid ? "Grid on" : "Grid off");
+    });
+    
+    // Mesh operations shortcuts
+    m_input.registerKeyCallback(GLFW_KEY_E, [this]() {
+        if (m_input.isKeyPressed(GLFW_KEY_LEFT_CONTROL) || m_input.isKeyPressed(GLFW_KEY_RIGHT_CONTROL)) {
+            // Ctrl+E is export
+            return;
+        }
+        // E alone can be rotate or extrude - for now just show message
+        if (m_selection.mode == SelectionMode::Face && m_selection.hasSelection()) {
+            auto* obj = m_scene.getSelectedObject();
+            if (obj) {
+                MeshOps::extrudeFaces(obj->mesh, m_selection, 0.5f);
+                obj->mesh.uploadToGPU();
+                m_ui->setStatusMessage("Extruded faces");
+                m_ui->addConsoleMessage("Extruded " + std::to_string(m_selection.selectedFaces.size()) + " faces");
+            }
+        }
+    });
+    
+    m_input.registerKeyCallback(GLFW_KEY_S, [this]() {
+        bool ctrlPressed = m_input.isKeyPressed(GLFW_KEY_LEFT_CONTROL) || m_input.isKeyPressed(GLFW_KEY_RIGHT_CONTROL);
+        bool shiftPressed = m_input.isKeyPressed(GLFW_KEY_LEFT_SHIFT) || m_input.isKeyPressed(GLFW_KEY_RIGHT_SHIFT);
+        
+        if (shiftPressed) {
+            m_ui->setStatusMessage("Toggle snapping (not implemented)");
+        } else if (!ctrlPressed) {
+            // S alone is scale
+            m_ui->setStatusMessage("Scale mode");
+        }
     });
     
     // Delete

@@ -6,6 +6,7 @@
 #include "UI/Panels/MetricsPanel.hpp"
 #include "Core/Scene.hpp"
 #include "Core/Command.hpp"
+#include "Core/MeshOps.hpp"
 #include "IO/OBJLoader.hpp"
 #include "IO/OBJWriter.hpp"
 #include "IO/ProjectSerializer.hpp"
@@ -173,14 +174,32 @@ void UIManager::renderMenuBar(Scene& scene, CommandHistory& history) {
         }
         
         if (ImGui::BeginMenu("Tools")) {
-            if (ImGui::MenuItem("Subdivide")) {
-                // Handled by mesh ops
+            auto* obj = scene.getSelectedObject();
+            bool hasSelection = obj != nullptr;
+            
+            if (ImGui::MenuItem("Subdivide", nullptr, false, hasSelection)) {
+                if (obj) {
+                    MeshOps::subdivide(obj->mesh);
+                    obj->mesh.uploadToGPU();
+                    m_consolePanel->addMessage("Subdivided mesh");
+                }
             }
-            if (ImGui::MenuItem("Merge by Distance")) {
-                // Handled by mesh ops
+            if (ImGui::MenuItem("Extrude Faces", "E", false, hasSelection)) {
+                // Will be triggered by shortcut
             }
-            if (ImGui::MenuItem("Recalculate Normals")) {
-                // Handled by mesh ops
+            if (ImGui::MenuItem("Merge by Distance", nullptr, false, hasSelection)) {
+                if (obj) {
+                    MeshOps::mergeByDistance(obj->mesh, 0.001f);
+                    obj->mesh.uploadToGPU();
+                    m_consolePanel->addMessage("Merged vertices by distance");
+                }
+            }
+            if (ImGui::MenuItem("Recalculate Normals", nullptr, false, hasSelection)) {
+                if (obj) {
+                    MeshOps::recalculateNormals(obj->mesh);
+                    obj->mesh.uploadToGPU();
+                    m_consolePanel->addMessage("Recalculated normals");
+                }
             }
             ImGui::EndMenu();
         }
