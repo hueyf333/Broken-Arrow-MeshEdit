@@ -34,6 +34,38 @@ See [QUICKSTART.md](QUICKSTART.md) for a detailed getting started guide with exa
 
 ## Building
 
+You have two options for building the project:
+
+### Option A: Using the Pre-configured Visual Studio Solution (Recommended)
+
+The repository includes pre-configured Visual Studio 2022 solution files.
+
+**Prerequisites:**
+- Visual Studio 2022 with C++ development tools
+- vcpkg integrated with Visual Studio
+
+**Steps:**
+
+1. **Integrate vcpkg with Visual Studio** (one-time setup):
+   ```batch
+   cd C:\path\to\vcpkg
+   vcpkg integrate install
+   ```
+
+2. **Open the solution**:
+   - Open `MeshEditor.sln` in Visual Studio 2022
+   - Visual Studio will automatically restore dependencies via vcpkg manifest mode
+   - Select "x64" and "Release" (or "Debug") configuration
+   - Build → Build Solution (or press F7)
+
+3. **Run**:
+   - The executable will be in `bin\x64\Release\MeshEditor.exe`
+   - Resources are automatically copied to the output directory
+
+### Option B: Using CMake
+
+If you prefer CMake or need to regenerate the solution:
+
 ### 1. Install vcpkg
 
 If you don't have vcpkg installed:

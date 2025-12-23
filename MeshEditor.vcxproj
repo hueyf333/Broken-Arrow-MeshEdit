@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <ProjectGuid>{6B9E6E1E-1F5E-4C8E-9A5E-1E5E6E1E1E1E}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>MeshEditor</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)vendor\imguizmo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <PostBuildEvent>
+      <Command>xcopy /Y /E /I "$(ProjectDir)resources" "$(OutDir)resources"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)vendor\imguizmo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <PostBuildEvent>
+      <Command>xcopy /Y /E /I "$(ProjectDir)resources" "$(OutDir)resources"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\App.cpp" />
+    <ClCompile Include="src\Renderer\GLContext.cpp" />
+    <ClCompile Include="src\Renderer\MeshRenderer.cpp" />
+    <ClCompile Include="src\Renderer\GridRenderer.cpp" />
+    <ClCompile Include="src\Renderer\AxisGizmoRenderer.cpp" />
+    <ClCompile Include="src\Renderer\FramebufferRenderer.cpp" />
+    <ClCompile Include="src\Renderer\Shader.cpp" />
+    <ClCompile Include="src\UI\UIManager.cpp" />
+    <ClCompile Include="src\UI\Panels\ViewportPanel.cpp" />
+    <ClCompile Include="src\UI\Panels\OutlinerPanel.cpp" />
+    <ClCompile Include="src\UI\Panels\InspectorPanel.cpp" />
+    <ClCompile Include="src\UI\Panels\ConsolePanel.cpp" />
+    <ClCompile Include="src\UI\Panels\MetricsPanel.cpp" />
+    <ClCompile Include="src\Core\Scene.cpp" />
+    <ClCompile Include="src\Core\Mesh.cpp" />
+    <ClCompile Include="src\Core\MeshOps.cpp" />
+    <ClCompile Include="src\Core\Selection.cpp" />
+    <ClCompile Include="src\Core\Camera.cpp" />
+    <ClCompile Include="src\Core\Input.cpp" />
+    <ClCompile Include="src\Core\Command.cpp" />
+    <ClCompile Include="src\Core\Raycast.cpp" />
+    <ClCompile Include="src\IO\OBJLoader.cpp" />
+    <ClCompile Include="src\IO\OBJWriter.cpp" />
+    <ClCompile Include="src\IO\ProjectSerializer.cpp" />
+    <ClCompile Include="vendor\imguizmo\ImGuizmo.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\App.hpp" />
+    <ClInclude Include="src\Renderer\GLContext.hpp" />
+    <ClInclude Include="src\Renderer\MeshRenderer.hpp" />
+    <ClInclude Include="src\Renderer\GridRenderer.hpp" />
+    <ClInclude Include="src\Renderer\AxisGizmoRenderer.hpp" />
+    <ClInclude Include="src\Renderer\FramebufferRenderer.hpp" />
+    <ClInclude Include="src\Renderer\Shader.hpp" />
+    <ClInclude Include="src\UI\UIManager.hpp" />
+    <ClInclude Include="src\UI\Panels\ViewportPanel.hpp" />
+    <ClInclude Include="src\UI\Panels\OutlinerPanel.hpp" />
+    <ClInclude Include="src\UI\Panels\InspectorPanel.hpp" />
+    <ClInclude Include="src\UI\Panels\ConsolePanel.hpp" />
+    <ClInclude Include="src\UI\Panels\MetricsPanel.hpp" />
+    <ClInclude Include="src\Core\Scene.hpp" />
+    <ClInclude Include="src\Core\Mesh.hpp" />
+    <ClInclude Include="src\Core\MeshOps.hpp" />
+    <ClInclude Include="src\Core\Selection.hpp" />
+    <ClInclude Include="src\Core\Camera.hpp" />
+    <ClInclude Include="src\Core\Input.hpp" />
+    <ClInclude Include="src\Core\Command.hpp" />
+    <ClInclude Include="src\Core\Raycast.hpp" />
+    <ClInclude Include="src\IO\OBJLoader.hpp" />
+    <ClInclude Include="src\IO\OBJWriter.hpp" />
+    <ClInclude Include="src\IO\ProjectSerializer.hpp" />
+    <ClInclude Include="vendor\imguizmo\ImGuizmo.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="vcpkg.json" />
+    <None Include="CMakeLists.txt" />
+    <None Include="README.md" />
+    <None Include="QUICKSTART.md" />
+    <None Include="ARCHITECTURE.md" />
+    <None Include="IMPLEMENTATION_SUMMARY.md" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

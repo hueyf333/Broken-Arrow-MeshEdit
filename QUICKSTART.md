@@ -5,35 +5,53 @@
 ### 1. Prerequisites
 - Windows 10/11
 - Visual Studio 2022
-- CMake 3.20+
-- vcpkg installed
+- vcpkg (for dependencies)
 
-### 2. Setup vcpkg
+### 2. Setup vcpkg (One-time)
 ```batch
 # If you don't have vcpkg:
 git clone https://github.com/Microsoft/vcpkg.git C:\vcpkg
 cd C:\vcpkg
 bootstrap-vcpkg.bat
 
-# Set environment variable
-set VCPKG_ROOT=C:\vcpkg
+# Integrate with Visual Studio (IMPORTANT!)
+vcpkg integrate install
 ```
 
 ### 3. Build the Project
+
+**Option 1: Using Visual Studio (Easiest)**
 ```batch
 git clone https://github.com/hueyf333/Broken-Arrow-MeshEdit.git
 cd Broken-Arrow-MeshEdit
 
-# Option 1: Use the build script
-build.bat
+# Open MeshEditor.sln in Visual Studio 2022
+# Visual Studio will automatically restore vcpkg dependencies
+# Press F7 to build
+```
 
-# Option 2: Manual CMake
+**Option 2: Using build.bat**
+```batch
+git clone https://github.com/hueyf333/Broken-Arrow-MeshEdit.git
+cd Broken-Arrow-MeshEdit
+set VCPKG_ROOT=C:\vcpkg
+build.bat
+```
+
+**Option 3: Manual CMake**
+```batch
+git clone https://github.com/hueyf333/Broken-Arrow-MeshEdit.git
+cd Broken-Arrow-MeshEdit
 cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=%VCPKG_ROOT%\scripts\buildsystems\vcpkg.cmake -G "Visual Studio 17 2022" -A x64
 cmake --build build --config Release
 ```
 
 ### 4. Run
 ```batch
+# If using Visual Studio:
+bin\x64\Release\MeshEditor.exe
+
+# If using CMake:
 cd build\Release
 MeshEditor.exe
 ```

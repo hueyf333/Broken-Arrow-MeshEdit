@@ -2,6 +2,7 @@
 build/
 out/
 bin/
+obj/
 lib/
 x64/
 Debug/
@@ -11,9 +12,10 @@ MinSizeRel/
 
 # Visual Studio
 .vs/
-*.sln
-*.vcxproj
-*.vcxproj.filters
+# Note: .sln, .vcxproj and .vcxproj.filters files are now committed for easy setup
+# *.sln
+# *.vcxproj
+# *.vcxproj.filters
 *.vcxproj.user
 *.suo
 *.user
