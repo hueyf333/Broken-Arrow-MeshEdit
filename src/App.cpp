@@ -16,6 +16,10 @@ App::App()
 {
 }
 
+bool App::isCtrlPressed() const {
+    return m_input.isKeyPressed(GLFW_KEY_LEFT_CONTROL) || m_input.isKeyPressed(GLFW_KEY_RIGHT_CONTROL);
+}
+
 App::~App() {
 }
 
@@ -49,15 +53,13 @@ void App::init() {
 void App::setupShortcuts() {
     // Transform tools (W/E/R only if not Ctrl pressed)
     m_input.registerKeyCallback(GLFW_KEY_W, [this]() {
-        bool ctrlPressed = m_input.isKeyPressed(GLFW_KEY_LEFT_CONTROL) || m_input.isKeyPressed(GLFW_KEY_RIGHT_CONTROL);
-        if (!ctrlPressed) {
+        if (!isCtrlPressed()) {
             m_ui->setStatusMessage("Translate mode");
         }
     });
     
     m_input.registerKeyCallback(GLFW_KEY_R, [this]() {
-        bool ctrlPressed = m_input.isKeyPressed(GLFW_KEY_LEFT_CONTROL) || m_input.isKeyPressed(GLFW_KEY_RIGHT_CONTROL);
-        if (!ctrlPressed) {
+        if (!isCtrlPressed()) {
             m_ui->setStatusMessage("Rotate mode (legacy - use ImGuizmo)");
         }
     });
@@ -106,7 +108,7 @@ void App::setupShortcuts() {
     
     // Mesh operations shortcuts
     m_input.registerKeyCallback(GLFW_KEY_E, [this]() {
-        if (m_input.isKeyPressed(GLFW_KEY_LEFT_CONTROL) || m_input.isKeyPressed(GLFW_KEY_RIGHT_CONTROL)) {
+        if (isCtrlPressed()) {
             // Ctrl+E is export
             return;
         }
@@ -123,12 +125,11 @@ void App::setupShortcuts() {
     });
     
     m_input.registerKeyCallback(GLFW_KEY_S, [this]() {
-        bool ctrlPressed = m_input.isKeyPressed(GLFW_KEY_LEFT_CONTROL) || m_input.isKeyPressed(GLFW_KEY_RIGHT_CONTROL);
         bool shiftPressed = m_input.isKeyPressed(GLFW_KEY_LEFT_SHIFT) || m_input.isKeyPressed(GLFW_KEY_RIGHT_SHIFT);
         
         if (shiftPressed) {
             m_ui->setStatusMessage("Toggle snapping (not implemented)");
-        } else if (!ctrlPressed) {
+        } else if (!isCtrlPressed()) {
             // S alone is scale
             m_ui->setStatusMessage("Scale mode");
         }
@@ -300,9 +301,7 @@ void App::handleShortcuts() {
     m_input.processKeyCallbacks();
     
     // Undo/Redo with Ctrl
-    bool ctrlPressed = m_input.isKeyPressed(GLFW_KEY_LEFT_CONTROL) || m_input.isKeyPressed(GLFW_KEY_RIGHT_CONTROL);
-    
-    if (ctrlPressed) {
+    if (isCtrlPressed()) {
         if (m_input.isKeyDown(GLFW_KEY_Z)) {
             m_commandHistory.undo();
             m_ui->setStatusMessage("Undo");

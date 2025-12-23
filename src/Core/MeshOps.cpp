@@ -67,10 +67,10 @@ void extrudeFaces(Mesh& mesh, const Selection& selection, float distance) {
 }
 
 void bevelEdges(Mesh& mesh, const Selection& selection, float amount) {
-    // Simplified bevel: just offset edges slightly
+    // TODO: Implement edge beveling
     // A full bevel would require edge splitting and face creation
+    // This is left as a stub for future implementation
     (void)mesh; (void)selection; (void)amount;
-    // Stub for now
 }
 
 void subdivide(Mesh& mesh) {

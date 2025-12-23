@@ -83,8 +83,10 @@ void Camera::updateProjection() {
     if (m_mode == CameraMode::Perspective) {
         m_projection = glm::perspective(glm::radians(m_fov), m_aspect, m_near, m_far);
     } else {
-        float halfWidth = m_orthoSize * m_aspect;
-        float halfHeight = m_orthoSize;
+        // Clamp to prevent degenerate projections
+        float clampedSize = std::max(0.1f, m_orthoSize);
+        float halfWidth = clampedSize * m_aspect;
+        float halfHeight = clampedSize;
         m_projection = glm::ortho(-halfWidth, halfWidth, -halfHeight, halfHeight, m_near, m_far);
     }
 }

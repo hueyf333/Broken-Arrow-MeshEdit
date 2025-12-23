@@ -50,7 +50,11 @@ void Mesh::calculateNormals() {
         glm::vec3 v1 = vertices[i1];
         glm::vec3 v2 = vertices[i2];
         
-        glm::vec3 normal = glm::normalize(glm::cross(v1 - v0, v2 - v0));
+        glm::vec3 normal = glm::cross(v1 - v0, v2 - v0);
+        float length = glm::length(normal);
+        if (length > 0.0001f) {
+            normal = normal / length; // Normalize only if non-zero
+        }
         
         normals[i0] += normal;
         normals[i1] += normal;
@@ -58,7 +62,12 @@ void Mesh::calculateNormals() {
     }
     
     for (auto& n : normals) {
-        n = glm::normalize(n);
+        float length = glm::length(n);
+        if (length > 0.0001f) {
+            n = n / length; // Normalize only if non-zero
+        } else {
+            n = glm::vec3(0.0f, 1.0f, 0.0f); // Default to up if zero
+        }
     }
 }
 

@@ -27,6 +27,7 @@ private:
     void handleShortcuts();
     void setupShortcuts();
     void performSelection();
+    bool isCtrlPressed() const;
     
     std::unique_ptr<GLContext> m_context;
     std::unique_ptr<MeshRenderer> m_meshRenderer;
