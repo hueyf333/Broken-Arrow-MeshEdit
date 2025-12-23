@@ -1,6 +1,14 @@
 # Broken-Arrow-MeshEdit
 
+**Status: ✅ Implementation Complete**
+
 A Windows 10/11 mesh editor built with C++20, targeting Visual Studio 2022 (v143 toolset). Features OpenGL 4.5 rendering with GLFW, Dear ImGui interface, and ImGuizmo transform gizmos.
+
+> **📋 See [IMPLEMENTATION_SUMMARY.md](IMPLEMENTATION_SUMMARY.md) for complete deliverables checklist**
+> 
+> **🚀 See [QUICKSTART.md](QUICKSTART.md) for getting started guide**
+> 
+> **🏗️ See [ARCHITECTURE.md](ARCHITECTURE.md) for technical details**
 
 ## Features
 
