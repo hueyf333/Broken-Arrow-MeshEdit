@@ -123,7 +123,8 @@ void mergeByDistance(Mesh& mesh, float threshold) {
         for (size_t j = i + 1; j < mesh.vertices.size(); ++j) {
             if (mergeMap.find(static_cast<int>(j)) != mergeMap.end()) continue;
             
-            float distSq = glm::distance2(mesh.vertices[i], mesh.vertices[j]);
+            glm::vec3 diff = mesh.vertices[j] - mesh.vertices[i];
+            float distSq = glm::dot(diff, diff);
             if (distSq < thresholdSq) {
                 mergeMap[static_cast<int>(j)] = static_cast<int>(i);
             }
