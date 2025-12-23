@@ -1,0 +1,41 @@
+# Build directories
+build/
+out/
+bin/
+lib/
+x64/
+Debug/
+Release/
+RelWithDebInfo/
+MinSizeRel/
+
+# Visual Studio
+.vs/
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.suo
+*.user
+*.opensdf
+*.sdf
+*.db
+*.opendb
+*.VC.db
+*.VC.opendb
+
+# vcpkg
+vcpkg_installed/
+
+# IDE
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.log
+*.cache
+
+# OS files
+.DS_Store
+Thumbs.db

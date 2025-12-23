@@ -1,0 +1,17 @@
+{
+  "name": "mesh-editor",
+  "version": "0.1.0",
+  "dependencies": [
+    "glfw3",
+    "glad",
+    "glm",
+    "imgui",
+    {
+      "name": "imgui",
+      "features": ["glfw-binding", "opengl3-binding"]
+    },
+    "tinyobjloader",
+    "nlohmann-json"
+  ],
+  "builtin-baseline": "3508985146f1b1d248c67abb13885f18c1370635"
+}

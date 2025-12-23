@@ -1,0 +1,209 @@
+#include "App.hpp"
+#include "Core/MeshOps.hpp"
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+#include <iostream>
+
+App::App()
+    : m_wireframe(false)
+    , m_showGrid(true)
+    , m_showAxes(true)
+    , m_lastMouseX(0.0)
+    , m_lastMouseY(0.0)
+    , m_firstMouse(true)
+{
+}
+
+App::~App() {
+}
+
+void App::init() {
+    m_context = std::make_unique<GLContext>(1600, 900, "MeshEditor");
+    if (!m_context->getWindow()) {
+        throw std::runtime_error("Failed to create window");
+    }
+    
+    m_input.setWindow(m_context->getWindow());
+    
+    m_meshRenderer = std::make_unique<MeshRenderer>();
+    m_gridRenderer = std::make_unique<GridRenderer>();
+    m_axisRenderer = std::make_unique<AxisGizmoRenderer>();
+    m_framebuffer = std::make_unique<FramebufferRenderer>();
+    m_ui = std::make_unique<UIManager>(m_context->getWindow());
+    
+    // Create initial scene
+    m_scene.addObject("Cube", Mesh::createCube());
+    m_scene.addObject("Plane", Mesh::createPlane(10.0f, 10));
+    m_scene.getObject(1)->position.y = -1.0f;
+    m_scene.getObject(1)->color = glm::vec3(0.5f, 0.5f, 0.5f);
+    
+    m_ui->addConsoleMessage("MeshEditor initialized");
+    m_ui->addConsoleMessage("Use W/E/R for transform tools, 1/2/3 for selection modes");
+    
+    // Setup keyboard shortcuts
+    setupShortcuts();
+}
+
+void App::setupShortcuts() {
+    // Transform tools
+    m_input.registerKeyCallback(GLFW_KEY_W, [this]() {
+        m_ui->setStatusMessage("Translate mode");
+    });
+    m_input.registerKeyCallback(GLFW_KEY_E, [this]() {
+        m_ui->setStatusMessage("Rotate mode");
+    });
+    m_input.registerKeyCallback(GLFW_KEY_R, [this]() {
+        m_ui->setStatusMessage("Scale mode");
+    });
+    m_input.registerKeyCallback(GLFW_KEY_Q, [this]() {
+        m_ui->setStatusMessage("Select mode");
+    });
+    
+    // Selection modes
+    m_input.registerKeyCallback(GLFW_KEY_1, [this]() {
+        m_selection.setMode(SelectionMode::Vertex);
+        m_ui->setStatusMessage("Vertex mode");
+    });
+    m_input.registerKeyCallback(GLFW_KEY_2, [this]() {
+        m_selection.setMode(SelectionMode::Edge);
+        m_ui->setStatusMessage("Edge mode");
+    });
+    m_input.registerKeyCallback(GLFW_KEY_3, [this]() {
+        m_selection.setMode(SelectionMode::Face);
+        m_ui->setStatusMessage("Face mode");
+    });
+    
+    // View
+    m_input.registerKeyCallback(GLFW_KEY_F, [this]() {
+        auto* obj = m_scene.getSelectedObject();
+        if (obj) {
+            m_camera.frameTarget(obj->position, 3.0f);
+            m_ui->setStatusMessage("Frame selection");
+        }
+    });
+    
+    m_input.registerKeyCallback(GLFW_KEY_O, [this]() {
+        m_camera.toggleMode();
+        m_ui->setStatusMessage("Toggle orthographic/perspective");
+    });
+    
+    m_input.registerKeyCallback(GLFW_KEY_Z, [this]() {
+        m_wireframe = !m_wireframe;
+        m_ui->setStatusMessage(m_wireframe ? "Wireframe mode" : "Solid mode");
+    });
+    
+    m_input.registerKeyCallback(GLFW_KEY_X, [this]() {
+        m_showGrid = !m_showGrid;
+        m_ui->setStatusMessage(m_showGrid ? "Grid on" : "Grid off");
+    });
+    
+    // Delete
+    m_input.registerKeyCallback(GLFW_KEY_DELETE, [this]() {
+        int idx = m_scene.getSelectedObjectIndex();
+        if (idx >= 0) {
+            m_scene.removeObject(idx);
+            m_ui->setStatusMessage("Deleted object");
+        }
+    });
+}
+
+void App::run() {
+    init();
+    
+    while (!m_context->shouldClose()) {
+        update();
+        render();
+        m_context->swapBuffers();
+        m_context->pollEvents();
+    }
+}
+
+void App::update() {
+    m_input.update();
+    handleInput();
+    handleShortcuts();
+    
+    // Update camera aspect ratio
+    float vpWidth, vpHeight;
+    m_ui->getViewportSize(vpWidth, vpHeight);
+    if (vpWidth > 0 && vpHeight > 0) {
+        m_camera.setAspect(vpWidth / vpHeight);
+        m_framebuffer->resize(static_cast<int>(vpWidth), static_cast<int>(vpHeight));
+    }
+}
+
+void App::render() {
+    // Render to framebuffer
+    m_framebuffer->bind();
+    glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
+    if (m_showGrid) {
+        m_gridRenderer->render(m_camera);
+    }
+    
+    if (m_showAxes) {
+        m_axisRenderer->render(m_camera);
+    }
+    
+    m_meshRenderer->render(m_scene, m_camera, m_wireframe);
+    
+    m_framebuffer->unbind();
+    
+    // Render UI
+    int width, height;
+    m_context->getFramebufferSize(width, height);
+    glViewport(0, 0, width, height);
+    glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
+    m_ui->beginFrame();
+    m_ui->setViewportTexture(m_framebuffer->getTexture());
+    m_ui->renderUI(m_scene, m_camera, m_selection, m_commandHistory);
+    m_ui->endFrame();
+}
+
+void App::handleInput() {
+    if (!m_ui->isViewportFocused()) {
+        return;
+    }
+    
+    // Camera controls
+    bool altPressed = m_input.isKeyPressed(GLFW_KEY_LEFT_ALT) || m_input.isKeyPressed(GLFW_KEY_RIGHT_ALT);
+    
+    if (altPressed && m_input.isMouseButtonPressed(GLFW_MOUSE_BUTTON_LEFT)) {
+        double dx, dy;
+        m_input.getMouseDelta(dx, dy);
+        m_camera.orbit(static_cast<float>(dx) * 0.5f, static_cast<float>(-dy) * 0.5f);
+    }
+    
+    if (altPressed && m_input.isMouseButtonPressed(GLFW_MOUSE_BUTTON_MIDDLE)) {
+        double dx, dy;
+        m_input.getMouseDelta(dx, dy);
+        m_camera.pan(static_cast<float>(-dx), static_cast<float>(dy));
+    }
+    
+    if (altPressed && m_input.isMouseButtonPressed(GLFW_MOUSE_BUTTON_RIGHT)) {
+        double dx, dy;
+        m_input.getMouseDelta(dx, dy);
+        m_camera.zoom(static_cast<float>(dy));
+    }
+}
+
+void App::handleShortcuts() {
+    m_input.processKeyCallbacks();
+    
+    // Undo/Redo with Ctrl
+    bool ctrlPressed = m_input.isKeyPressed(GLFW_KEY_LEFT_CONTROL) || m_input.isKeyPressed(GLFW_KEY_RIGHT_CONTROL);
+    
+    if (ctrlPressed) {
+        if (m_input.isKeyDown(GLFW_KEY_Z)) {
+            m_commandHistory.undo();
+            m_ui->setStatusMessage("Undo");
+        }
+        if (m_input.isKeyDown(GLFW_KEY_Y)) {
+            m_commandHistory.redo();
+            m_ui->setStatusMessage("Redo");
+        }
+    }
+}
