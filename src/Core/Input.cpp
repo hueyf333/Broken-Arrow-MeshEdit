@@ -18,6 +18,14 @@ bool Input::isMouseButtonPressed(int button) const {
     return glfwGetMouseButton(m_window, button) == GLFW_PRESS;
 }
 
+bool Input::isMouseButtonDown(int button) const {
+    if (!m_window) return false;
+    int state = glfwGetMouseButton(m_window, button);
+    auto it = m_mouseStates.find(button);
+    bool wasPressed = (it != m_mouseStates.end()) && it->second;
+    return state == GLFW_PRESS && !wasPressed;
+}
+
 void Input::getMousePos(double& x, double& y) const {
     if (!m_window) {
         x = y = 0.0;
@@ -48,6 +56,10 @@ void Input::update() {
     
     for (auto& pair : m_keyStates) {
         pair.second = (glfwGetKey(m_window, pair.first) == GLFW_PRESS);
+    }
+    
+    for (auto& pair : m_mouseStates) {
+        pair.second = (glfwGetMouseButton(m_window, pair.first) == GLFW_PRESS);
     }
 }
 

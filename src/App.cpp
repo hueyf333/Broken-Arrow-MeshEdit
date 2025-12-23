@@ -1,8 +1,10 @@
 #include "App.hpp"
 #include "Core/MeshOps.hpp"
+#include "Core/Raycast.hpp"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <limits>
 
 App::App()
     : m_wireframe(false)
@@ -187,6 +189,75 @@ void App::handleInput() {
         double dx, dy;
         m_input.getMouseDelta(dx, dy);
         m_camera.zoom(static_cast<float>(dy));
+    }
+    
+    // Selection with left click (when not using Alt)
+    if (!altPressed && m_input.isMouseButtonDown(GLFW_MOUSE_BUTTON_LEFT)) {
+        performSelection();
+    }
+}
+
+void App::performSelection() {
+    float mouseX, mouseY;
+    m_ui->getViewportMousePos(mouseX, mouseY);
+    
+    float vpWidth, vpHeight;
+    m_ui->getViewportSize(vpWidth, vpHeight);
+    
+    if (vpWidth <= 0 || vpHeight <= 0) return;
+    
+    // Convert to NDC
+    float ndcX = (2.0f * mouseX) / vpWidth - 1.0f;
+    float ndcY = 1.0f - (2.0f * mouseY) / vpHeight;
+    
+    glm::vec3 rayDir = m_camera.getRayDirection(ndcX, ndcY);
+    glm::vec3 rayOrigin = m_camera.getPosition();
+    
+    if (m_selection.mode == SelectionMode::Object) {
+        // Object selection
+        float closestDist = std::numeric_limits<float>::max();
+        int closestObj = -1;
+        
+        for (size_t i = 0; i < m_scene.getObjects().size(); ++i) {
+            auto& obj = m_scene.getObjects()[i];
+            if (!obj->visible) continue;
+            
+            auto hit = Raycast::castRay(rayOrigin, rayDir, obj->mesh, obj->getTransform(), static_cast<int>(i));
+            if (hit && hit->distance < closestDist) {
+                closestDist = hit->distance;
+                closestObj = static_cast<int>(i);
+            }
+        }
+        
+        if (closestObj >= 0) {
+            m_scene.selectObject(closestObj);
+            m_ui->setStatusMessage("Selected: " + m_scene.getObject(closestObj)->name);
+        }
+    } else if (m_selection.mode == SelectionMode::Face) {
+        // Face selection
+        auto* obj = m_scene.getSelectedObject();
+        if (obj) {
+            auto hit = Raycast::castRay(rayOrigin, rayDir, obj->mesh, obj->getTransform(), 0);
+            if (hit) {
+                m_selection.selectedFaces.clear();
+                m_selection.selectedFaces.insert(hit->triangleIndex);
+                m_ui->setStatusMessage("Selected face: " + std::to_string(hit->triangleIndex));
+            }
+        }
+    } else if (m_selection.mode == SelectionMode::Vertex) {
+        // Vertex selection
+        auto* obj = m_scene.getSelectedObject();
+        if (obj) {
+            auto hit = Raycast::castRay(rayOrigin, rayDir, obj->mesh, obj->getTransform(), 0);
+            if (hit) {
+                int closestVertex = Raycast::findClosestVertex(hit->hitPoint, obj->mesh, obj->getTransform(), 0.5f);
+                if (closestVertex >= 0) {
+                    m_selection.selectedVertices.clear();
+                    m_selection.selectedVertices.insert(closestVertex);
+                    m_ui->setStatusMessage("Selected vertex: " + std::to_string(closestVertex));
+                }
+            }
+        }
     }
 }
 

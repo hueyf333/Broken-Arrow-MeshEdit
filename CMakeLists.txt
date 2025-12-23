@@ -35,6 +35,7 @@ set(SOURCES
     src/Core/Camera.cpp
     src/Core/Input.cpp
     src/Core/Command.cpp
+    src/Core/Raycast.cpp
     src/IO/OBJLoader.cpp
     src/IO/OBJWriter.cpp
     src/IO/ProjectSerializer.cpp
@@ -61,6 +62,7 @@ set(HEADERS
     src/Core/Camera.hpp
     src/Core/Input.hpp
     src/Core/Command.hpp
+    src/Core/Raycast.hpp
     src/IO/OBJLoader.hpp
     src/IO/OBJWriter.hpp
     src/IO/ProjectSerializer.hpp

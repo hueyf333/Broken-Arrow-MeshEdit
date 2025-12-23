@@ -10,6 +10,7 @@ public:
     bool isKeyPressed(int key) const;
     bool isKeyDown(int key) const;
     bool isMouseButtonPressed(int button) const;
+    bool isMouseButtonDown(int button) const;
     
     void getMousePos(double& x, double& y) const;
     void getMouseDelta(double& dx, double& dy);
@@ -26,5 +27,6 @@ private:
     bool m_firstMouse = true;
     
     std::map<int, bool> m_keyStates;
+    std::map<int, bool> m_mouseStates;
     std::map<int, std::function<void()>> m_keyCallbacks;
 };

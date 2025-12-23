@@ -26,6 +26,7 @@ private:
     void handleInput();
     void handleShortcuts();
     void setupShortcuts();
+    void performSelection();
     
     std::unique_ptr<GLContext> m_context;
     std::unique_ptr<MeshRenderer> m_meshRenderer;
