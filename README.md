@@ -13,6 +13,10 @@ A Windows 10/11 mesh editor built with C++20, targeting Visual Studio 2022 (v143
 - **Rendering**: Lambert lighting, wireframe/solid shading toggle, grid and axes overlay
 - **Primitives**: Built-in creation of cube, plane, and icosphere meshes
 
+## Quick Start
+
+See [QUICKSTART.md](QUICKSTART.md) for a detailed getting started guide with examples and workflows.
+
 ## Requirements
 
 - Windows 10/11
@@ -188,3 +192,31 @@ See LICENSE file.
 - Advanced features like PBR, physics, or animation are out of scope
 - Tested on Windows 10/11 with Visual Studio 2022
 - OpenGL 4.5 core profile required
+- The application starts with a sample scene (cube and plane)
+- All mesh operations work on the currently selected object
+- Undo/redo is available for most operations
+- ImGuizmo provides visual transform manipulation in the viewport
+
+## Known Limitations
+
+- Edge selection mode is partially implemented
+- Bevel operation is stubbed out
+- No file dialogs (files use hardcoded paths like "sample.obj", "export.obj", "project.json")
+- Box/marquee selection not implemented
+- Only single-level scene hierarchy (no parenting)
+- Limited to simple diffuse/flat color materials
+
+## Future Enhancements
+
+Potential improvements not in current scope:
+- Proper file dialogs for import/export
+- More advanced subdivision surfaces
+- UV mapping and texture support
+- Multiple undo/redo stacks per object
+- Plugin system for custom operations
+- Scripting support (Lua/Python)
+
+## Contributing
+
+This is a learning project and demonstration of a mesh editing workflow. Feel free to fork and extend!
+
